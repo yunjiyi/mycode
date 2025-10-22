@@ -33,7 +33,23 @@
           "fonts": ["Segoe UI", "Arial"],
           "timezones": ["Pacific/Midway"],
           "phoneCode": "+1"
-        }
+        },
+        {
+          "country": "AS",
+          "name": "American Samoa",
+          "canvasLang": ["en", "sm"],
+          "fonts": ["Arial", "Verdana"],
+          "timezones": ["Pacific/Pago_Pago"],
+          "phoneCode": "+1-684"
+        },
+        {
+          "country": "NU",
+          "name": "Niue",
+          "canvasLang": ["en"],
+          "fonts": ["Arial", "Verdana"],
+          "timezones": ["Pacific/Niue"],
+          "phoneCode": "+683"
+        }      
       ],
       "-600": [
         {
@@ -1466,24 +1482,6 @@
           "fonts": ["Arial", "Verdana"],
           "timezones": ["Pacific/Kiritimati"],
           "phoneCode": "+686"
-        }
-      ],
-      "-660": [
-        {
-          "country": "AS",
-          "name": "American Samoa",
-          "canvasLang": ["en", "sm"],
-          "fonts": ["Arial", "Verdana"],
-          "timezones": ["Pacific/Pago_Pago"],
-          "phoneCode": "+1-684"
-        },
-        {
-          "country": "NU",
-          "name": "Niue",
-          "canvasLang": ["en"],
-          "fonts": ["Arial", "Verdana"],
-          "timezones": ["Pacific/Niue"],
-          "phoneCode": "+683"
         }
       ],
       "-600": [
