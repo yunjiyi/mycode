@@ -1,3 +1,4 @@
+const offsetToCountriesMap = {
   "-720": ["UM"], // Baker Island
   "-660": ["WS", "NU"],
   "-600": ["PF", "TV", "KI"],
@@ -30,3 +31,4 @@
   "600": ["AU", "PG", "FM"],
   "660": ["NZ", "FJ", "TV"],
   "720": ["KI"]
+};
