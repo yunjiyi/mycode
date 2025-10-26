@@ -1,0 +1,162 @@
+{
+  "-720": {
+    countries: ["UM"],
+    timeZone: "Etc/GMT+12",
+    primaryCountry: "UM"
+  },
+  "-660": {
+    countries: ["WS", "NU"],
+    timeZone: "Pacific/Niue",
+    primaryCountry: "NU"
+  },
+  "-600": {
+    countries: ["PF", "TV", "KI"],
+    timeZone: "Pacific/Tarawa",
+    primaryCountry: "TV"
+  },
+  "-570": {
+    countries: ["CK"],
+    timeZone: "Pacific/Rarotonga",
+    primaryCountry: "CK"
+  },
+  "-540": {
+    countries: ["US", "MX"],
+    timeZone: "America/Anchorage",
+    primaryCountry: "US"
+  },
+  "-480": {
+    countries: ["US", "CA"],
+    timeZone: "America/Los_Angeles",
+    primaryCountry: "US"
+  },
+  "-420": {
+    countries: ["US", "CA"],
+    timeZone: "America/Denver",
+    primaryCountry: "US"
+  },
+  "-360": {
+    countries: ["US", "MX", "CO", "PE"],
+    timeZone: "America/Chicago",
+    primaryCountry: "US"
+  },
+  "-300": {
+    countries: ["US", "CU", "CO"],
+    timeZone: "America/New_York",
+    primaryCountry: "US"
+  },
+  "-240": {
+    countries: ["VE", "DO"],
+    timeZone: "America/Caracas",
+    primaryCountry: "VE"
+  },
+  "-180": {
+    countries: ["AR", "BR", "UY"],
+    timeZone: "America/Argentina/Buenos_Aires",
+    primaryCountry: "AR"
+  },
+  "-120": {
+    countries: ["BR"],
+    timeZone: "America/Noronha",
+    primaryCountry: "BR"
+  },
+  "0": {
+    countries: ["GB", "PT", "GH", "IS"],
+    timeZone: "UTC",
+    primaryCountry: "GB"
+  },
+  "60": {
+    countries: ["FR", "DE", "IT", "ES", "SE", "NO", "PL", "CZ", "BE", "NL", "CH", "DK"],
+    timeZone: "Europe/Berlin",
+    primaryCountry: "DE"
+  },
+  "120": {
+    countries: ["GR", "TR", "UA", "RO", "FI", "IL", "ZA"],
+    timeZone: "Europe/Athens",
+    primaryCountry: "GR"
+  },
+  "180": {
+    countries: ["RU", "KE", "TZ", "IQ", "SA"],
+    timeZone: "Europe/Moscow",
+    primaryCountry: "RU"
+  },
+  "210": {
+    countries: ["IR"],
+    timeZone: "Asia/Tehran",
+    primaryCountry: "IR"
+  },
+  "240": {
+    countries: ["AE", "OM", "AZ"],
+    timeZone: "Asia/Dubai",
+    primaryCountry: "AE"
+  },
+  "270": {
+    countries: ["AF"],
+    timeZone: "Asia/Kabul",
+    primaryCountry: "AF"
+  },
+  "300": {
+    countries: ["PK", "UZ"],
+    timeZone: "Asia/Karachi",
+    primaryCountry: "PK"
+  },
+  "330": {
+    countries: ["IN", "LK"],
+    timeZone: "Asia/Kolkata",
+    primaryCountry: "IN"
+  },
+  "345": {
+    countries: ["NP"],
+    timeZone: "Asia/Kathmandu",
+    primaryCountry: "NP"
+  },
+  "360": {
+    countries: ["BD", "KZ"],
+    timeZone: "Asia/Dhaka",
+    primaryCountry: "BD"
+  },
+  "390": {
+    countries: ["MM"],
+    timeZone: "Asia/Yangon",
+    primaryCountry: "MM"
+  },
+  "420": {
+    countries: ["TH", "ID", "VN", "KH"],
+    timeZone: "Asia/Bangkok",
+    primaryCountry: "TH"
+  },
+  "480": {
+    countries: ["CN", "SG", "MY", "PH", "AU"],
+    timeZone: "Asia/Shanghai",
+    primaryCountry: "CN"
+  },
+  "525": {
+    countries: ["AU"],
+    timeZone: "Australia/Eucla",
+    primaryCountry: "AU"
+  },
+  "540": {
+    countries: ["JP", "KR"],
+    timeZone: "Asia/Tokyo",
+    primaryCountry: "JP"
+  },
+  "570": {
+    countries: ["AU"],
+    timeZone: "Australia/Adelaide",
+    primaryCountry: "AU"
+  },
+  "600": {
+    countries: ["AU", "PG", "FM"],
+    timeZone: "Australia/Sydney",
+    primaryCountry: "AU"
+  },
+  "660": {
+    countries: ["NZ", "FJ", "TV"],
+    timeZone: "Pacific/Auckland",
+    primaryCountry: "NZ"
+  },
+  "720": {
+    countries: ["KI"],
+    timeZone: "Pacific/Kiritimati",
+    primaryCountry: "KI"
+  }
+};
