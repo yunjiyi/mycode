@@ -1,0 +1,287 @@
+(UTC-09:00)阿拉斯加
+当前声明时区: America/Anchorage
+当前 UTC 偏移: 480 分钟
+
+(UTC-07:00)育空
+当前声明时区: America/Whitehorse
+当前 UTC 偏移: 420 分钟
+
+(UTC-06:00)瓜达拉哈拉，墨西哥城，蒙特雷
+当前声明时区: America/Mexico_City
+当前 UTC 偏移: 360 分钟
+
+(UTC-06:00)萨斯喀彻温
+当前声明时区: America/Regina
+当前 UTC 偏移: 360 分钟致
+
+(UTC-06:00)中美洲
+当前声明时区: America/Guatemala
+当前 UTC 偏移: 360 分钟
+
+(UTC-05:00)波哥大，利马，基多，里奥布朗库
+当前声明时区: America/Bogota
+当前 UTC 偏移: 300 分钟
+
+(UTC-05:00)切图马尔
+当前声明时区: America/Cancun
+当前 UTC 偏移: 300 分钟
+
+(UTC-05:00)印地安那州（东部）
+当前声明时区: America/Indianapolis
+当前 UTC 偏移: 240 分钟
+
+(UTC-04:00)大西洋时间（加拿大）
+当前声明时区: America/Halifax
+当前 UTC 偏移: 180 分钟
+
+(UTC-04:00)加拉加斯
+当前声明时区: America/Caracas
+当前 UTC 偏移: 240 分钟
+
+(UTC-04:00)库亚巴
+当前声明时区: America/Cuiaba
+当前 UTC 偏移: 240 分钟
+
+(UTC-03:00)纽芬兰
+当前声明时区: America/St_Johns
+当前 UTC 偏移: 150 分钟
+
+(UTC-03:00)阿拉瓜伊纳
+当前声明时区: America/Araguaina
+当前 UTC 偏移: 180 分钟
+
+(UTC-03:00)卡宴，福塔雷萨
+当前声明时区: America/Cayenne
+当前 UTC 偏移: 180 分钟
+
+(UTC-03:00)蒙得维的亚
+当前声明时区: America/Montevideo
+当前 UTC 偏移: 180 分钟
+
+(UTC-03:00)萨尔瓦多
+当前声明时区: America/Bahia
+当前 UTC 偏移: 180 分钟
+
+(UTC-03:00)亚松森
+当前声明时区: America/Asuncion
+当前 UTC 偏移: 180 分钟
+
+(UTC-03:00)格陵兰
+当前声明时区: America/Godthab
+当前 UTC 偏移: 120 分钟
+
+(UTC-02:00)协调世界时-02
+当前声明时区: Etc/GMT+2
+当前 UTC 偏移: 120 分钟
+
+(UTC-01:00)佛得角群岛
+当前声明时区: Atlantic/Cape_Verde
+当前 UTC 偏移: 60 分钟
+
+(UTC-01:00)亚速尔群岛
+当前声明时区: Atlantic/Azores
+当前 UTC 偏移: 60 分钟
+
+(UTC-00:00)圣多美
+当前声明时区: Africa/Sao_Tome
+当前 UTC 偏移: 0 分钟
+
+(UTC+01:00)卡萨布兰卡
+当前声明时区: Africa/Casablanca
+当前 UTC 偏移: -60 分钟
+
+(UTC+01:00)贝尔格莱德，布拉迪斯拉发，布达佩斯，卢布尔雅……
+当前声明时区: Europe/Budapest
+当前 UTC 偏移: -60 分钟
+
+(UTC+01:00)萨拉热窝，斯科普里，华沙，萨格勒布
+当前声明时区: Europe/Warsaw
+当前 UTC 偏移: -60 分钟
+
+(UTC+02:00)的黎波里
+当前声明时区: Africa/Tripoli
+当前 UTC 偏移: -120 分钟
+
+(UTC+02:00)喀土穆
+当前声明时区: Africa/Khartoum
+当前 UTC 偏移: -120 分钟
+
+(UTC+02:00)温德和克
+当前声明时区: Africa/Windhoek
+当前 UTC 偏移: -120 分钟
+
+(UTC+02:00)耶路撒冷
+当前声明时区: Asia/Jerusalem
+当前 UTC 偏移: -120 分钟
+
+(UTC+02:00)朱巴
+当前声明时区: Africa/Juba
+当前 UTC 偏移: -120 分钟
+
+(UTC+03:00)安曼
+当前声明时区: Asia/Amman
+当前 UTC 偏移: -180 分钟
+
+(UTC+03:00)大马士革
+当前声明时区: Asia/Damascus
+当前 UTC 偏移: -180 分钟
+
+(UTC+03:00)明斯克
+当前声明时区: Europe/Minsk
+当前 UTC 偏移: -180 分钟
+
+(UTC+03:00)莫斯科，圣彼得堡
+当前声明时区: Europe/Moscow
+当前 UTC 偏移: -180 分钟
+
+(UTC+03:00)伊斯坦布尔
+当前声明时区: Europe/Istanbul
+当前 UTC 偏移: -180 分钟
+
+(UTC+03:00)德黑兰
+当前声明时区: Asia/Tehran
+当前 UTC 偏移: -210 分钟
+
+(UTC+04:00)埃里温
+当前声明时区: Asia/Yerevan
+当前 UTC 偏移: -240 分钟
+
+(UTC+04:00)巴库
+当前声明时区: Asia/Baku
+当前 UTC 偏移: -240 分钟
+
+(UTC+04:00)第比利斯
+当前声明时区: Asia/Tbilisi
+当前 UTC 偏移: -240 分钟
+
+(UTC+04:00)路易港
+当前声明时区: Indian/Mauritius
+当前 UTC 偏移: -240 分钟
+
+(UTC+04:00)伊热夫斯克，萨马拉
+当前声明时区: Europe/Samara
+当前 UTC 偏移: -240 分钟
+
+(UTC+04:30)喀布尔
+当前声明时区: Asia/Kabul
+当前 UTC 偏移: -270 分钟
+
+(UTC+05:00)阿什哈巴德，塔什干
+当前声明时区: Asia/Tashkent
+当前 UTC 偏移: -300 分钟
+
+(UTC+05:00)阿斯塔纳
+当前声明时区: Asia/Qyzylorda
+当前 UTC 偏移: -300 分钟
+
+(UTC+05:00)叶卡捷琳堡
+当前声明时区: Asia/Yekaterinburg
+当前 UTC 偏移: -300 分钟
+
+(UTC+05:00)伊斯兰堡，卡拉奇
+当前声明时区: Asia/Karachi
+当前 UTC 偏移: -300 分钟
+
+(UTC+05:30)斯里加亚渥登普拉
+当前声明时区: Asia/Colombo
+当前 UTC 偏移: -330 分钟
+
+(UTC+06:00)比什凯克
+当前声明时区: Asia/Bishkek
+当前 UTC 偏移: -360 分钟
+
+(UTC+06:00)达卡
+当前声明时区: Asia/Dhaka
+当前 UTC 偏移: -360 分钟
+
+(UTC+06:00)鄂木斯克
+当前声明时区: Asia/Omsk
+当前 UTC 偏移: -360 分钟
+
+(UTC+07:00)克拉斯诺亚尔斯克
+当前声明时区: Asia/Krasnoyarsk
+当前 UTC 偏移: -420 分钟
+
+(UTC+07:00)新西伯利亚
+当前声明时区: Asia/Novosibirsk
+当前 UTC 偏移: -420 分钟
+
+(UTC+08:00)台北
+当前声明时区: Asia/Taipei
+当前 UTC 偏移: -480 分钟
+
+(UTC+08:00)伊尔库茨克
+当前声明时区: Asia/Irkutsk
+当前 UTC 偏移: -480 分钟
+
+(UTC+09:00)赤塔市
+当前声明时区: Asia/Chita
+当前 UTC 偏移: -540 分钟
+
+(UTC+09:00)大阪，札幌，东京
+当前声明时区: Asia/Tokyo
+当前 UTC 偏移: -540 分钟
+
+(UTC+09:00)平壤
+当前声明时区: Asia/Pyongyang
+当前 UTC 偏移: -540 分钟
+
+(UTC+09:00)首尔
+当前声明时区: Asia/Seoul
+当前 UTC 偏移: -540 分钟
+
+(UTC+09:00)雅库茨克
+当前声明时区: Asia/Yakutsk
+当前 UTC 偏移: -540 分钟
+
+(UTC+09:30)阿德莱德
+当前声明时区: Australia/Adelaide
+当前 UTC 偏移: -630 分钟
+
+(UTC+09:30)达尔文
+当前声明时区: Australia/Darwin
+当前 UTC 偏移: -570 分钟
+
+(UTC+10:00)布里斯班
+当前声明时区: Australia/Brisbane
+当前 UTC 偏移: -600 分钟
+
+(UTC+10:00)符拉迪沃斯托克
+当前声明时区: Asia/Vladivostok
+当前 UTC 偏移: -600 分钟
+
+(UTC+10:00)堪培拉，墨尔本，悉尼
+当前声明时区: Australia/Sydney
+当前 UTC 偏移: -660 分钟
+
+(UTC+11:00)马加丹
+当前声明时区: Asia/Magadan
+当前 UTC 偏移: -660 分钟
+
+(UTC+11:00)乔库尔达赫
+当前声明时区: Asia/Srednekolymsk
+当前 UTC 偏移: -660 分钟
+
+(UTC+11:00)萨哈林
+当前声明时区: Asia/Sakhalin
+当前 UTC 偏移: -660 分钟
+
+(UTC+12:00)斐济
+当前声明时区: Pacific/Fiji
+当前 UTC 偏移: -720 分钟
+
+(UTC+12:00)协调世界时+12
+当前声明时区: Etc/GMT-12
+当前 UTC 偏移: -720 分钟
+
+(UTC+13:00)努库阿洛法
+当前声明时区: Pacific/Tongatapu
+当前 UTC 偏移: -780 分钟
+
+(UTC+13:00)萨摩亚群岛
+当前声明时区: Pacific/Apia
+当前 UTC 偏移: -780 分钟
+
+(UTC+13:00)协调世界时+13
+当前声明时区: Etc/GMT-13
+当前 UTC 偏移: -780 分钟
