@@ -130,8 +130,6 @@ canvas
 *************/
 let animationId = null;
 let canvasEnabled = false;
-
-    
     
 // 获取canvas和上下文
 const canvas = document.getElementById("canvas");
@@ -513,7 +511,17 @@ document.getElementById("toggleCanvas").addEventListener("click", () => {
 });
 
 // 页面加载时检查状态（默认关闭）
-window.addEventListener("load", () => {
+// window.addEventListener("load", () => {
+//   const saved = localStorage.getItem("canvasEnabled");
+//     if (saved === "true") {
+//     startCanvas();
+//   } else {
+//     stopCanvas(); // 默认关闭
+//   }
+// });
+    
+// 页面加载时检查状态（默认关闭）
+window.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("canvasEnabled");
   if (saved === "true") {
     startCanvas();
@@ -521,7 +529,6 @@ window.addEventListener("load", () => {
     stopCanvas(); // 默认关闭
   }
 });
-    
 
 
 
