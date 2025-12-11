@@ -126,169 +126,403 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /*************
- 星星背景 
+canvas
 *************/
-const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        let meteors = [];
-        let meteorSpawnTimer = 0;
-        let animationRunning = false;
+// 按钮控制记住状态
+let animationId = null;
+let canvasEnabled = false;
 
-        // 初始化画布尺寸
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = Math.max(document.documentElement.scrollHeight, window.innerHeight);
-        }
+    
+    
+    
+// 获取canvas和上下文
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-        // 初始化星星
-function initStars() {
-    const isMobile = window.innerWidth <= 768; // 判断是否是移动设备
-    const starCount = isMobile ? 170 : 510; // 手机使用200颗星星，电脑用600颗
+// 粒子数组
+const particles = [];
+const fireworkParticles = [];
+const dustParticles = [];
+const ripples = [];
+const techRipples = [];
 
-    stars = Array.from({ length: starCount }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * (isMobile ? 1.5 : 2), // 手机上星星稍微小一点
-        color: getRandomColor(),
-        originalColor: null,
-        flashing: false
-    }));
+// 鼠标状态
+const mouse = (() => {
+  let state = { x: null, y: null };
+  return {
+    get x() { return state.x; },
+    get y() { return state.y; },
+    set({ x, y }) { state = { x, y }; },
+    reset() { state = { x: null, y: null }; }
+  };
+})();
+
+let backgroundHue = 0;
+let frameCount = 0;
+let autoDrift = true;
+let driftTimer = null; // 定时器
+
+// 鼠标移动时关闭漂移，停止一段时间后恢复
+window.addEventListener("mousemove", (e) => {
+  mouse.set({ x: e.clientX, y: e.clientY });
+  techRipples.push(new Ripple(mouse.x, mouse.y));
+  autoDrift = false;
+
+  clearTimeout(driftTimer);
+  driftTimer = setTimeout(() => {
+    autoDrift = true; // 鼠标停止后恢复自动漂移
+  }, 1000); // 1秒后恢复
+});
+
+// 鼠标离开窗口时恢复漂移
+window.addEventListener("mouseleave", () => {
+  mouse.reset();
+  autoDrift = true;
+});
+
+// 动态粒子数量
+function adjustParticleCount() {
+  const particleConfig = {
+    heightConditions: [200, 300, 400, 500, 600],
+    widthConditions: [450, 600, 900, 1200, 1600],
+    particlesForHeight: [40, 60, 70, 90, 110],
+    particlesForWidth: [40, 50, 70, 90, 110]
+  };
+  let numParticles = 130;
+  for (let i = 0; i < particleConfig.heightConditions.length; i++) {
+    if (canvas.height < particleConfig.heightConditions[i]) {
+      numParticles = particleConfig.particlesForHeight[i];
+      break;
+    }
+  }
+  for (let i = 0; i < particleConfig.widthConditions.length; i++) {
+    if (canvas.width < particleConfig.widthConditions[i]) {
+      numParticles = Math.min(numParticles, particleConfig.particlesForWidth[i]);
+      break;
+    }
+  }
+  return numParticles;
 }
 
-        // 生成随机颜色
-        function getRandomColor() {
-            const colors = ["#50135f", "#533c06", "#555555", "#dddddd", "#03655d"];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
+// 粒子类
+class Particle {
+  constructor(x, y, isFirework = false) {
+    const baseSpeed = isFirework ? Math.random() * 2 + 1 : Math.random() * 0.5 + 0.3;
+    Object.assign(this, {
+      isFirework, x, y,
+      vx: Math.cos(Math.random() * Math.PI * 2) * baseSpeed,
+      vy: Math.sin(Math.random() * Math.PI * 2) * baseSpeed,
+      size: isFirework ? Math.random() * 2 + 2 : Math.random() * 3 + 1,
+      hue: Math.random() * 360,
+      alpha: 1,
+      sizeDirection: Math.random() < 0.5 ? -1 : 1,
+      trail: []
+    });
+  }
+  update(mouse) {
+    const dist = mouse.x !== null ? (mouse.x - this.x) ** 2 + (mouse.y - this.y) ** 2 : 0;
+    if (!this.isFirework) {
+      const force = dist && dist < 22500 ? (22500 - dist) / 22500 : 0;
+      if (autoDrift) {
+        this.vx += (Math.random() - 0.5) * 0.03;
+        this.vy += (Math.random() - 0.5) * 0.03;
+      }
+      if (dist) {
+        const sqrtDist = Math.sqrt(dist);
+        this.vx += ((mouse.x - this.x) / sqrtDist) * force * 0.1;
+        this.vy += ((mouse.y - this.y) / sqrtDist) * force * 0.1;
+      }
+      this.vx *= mouse.x !== null ? 0.99 : 0.998;
+      this.vy *= mouse.y !== null ? 0.99 : 0.998;
+    } else {
+      this.alpha -= 0.02;
+    }
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x <= 0 || this.x >= canvas.width - 1) this.vx *= -0.9;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -0.9;
+    this.size += this.sizeDirection * 0.1;
+    if (this.size > 4 || this.size < 1) this.sizeDirection *= -1;
+    this.hue = (this.hue + 0.3) % 360;
+    if (frameCount % 2 === 0 && (Math.abs(this.vx) > 0.1 || Math.abs(this.vy) > 0.1)) {
+      this.trail.push({ x: this.x, y: this.y, hue: this.hue, alpha: this.alpha });
+      if (this.trail.length > 15) this.trail.shift();
+    }
+  }
+  draw(ctx) {
+    const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+    gradient.addColorStop(0, `hsla(${this.hue}, 80%, 60%, ${Math.max(this.alpha, 0)})`);
+    gradient.addColorStop(1, `hsla(${this.hue + 30}, 80%, 30%, ${Math.max(this.alpha, 0)})`);
+    ctx.fillStyle = gradient;
+    ctx.shadowBlur = canvas.width > 900 ? 10 : 0;
+    ctx.shadowColor = `hsl(${this.hue}, 80%, 60%)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    if (this.trail.length > 1) {
+      ctx.beginPath();
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < this.trail.length - 1; i++) {
+        const { x: x1, y: y1, hue: h1, alpha: a1 } = this.trail[i];
+        const { x: x2, y: y2 } = this.trail[i + 1];
+        ctx.strokeStyle = `hsla(${h1}, 80%, 60%, ${Math.max(a1, 0)})`;
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+      }
+      ctx.stroke();
+    }
+  }
+  isDead() { return this.isFirework && this.alpha <= 0; }
+}
 
-        // 生成流星
-        function spawnMeteor() {
-            meteors.push({
-                x: Math.random() * canvas.width,
-                y: -20,
-                vx: Math.random() * 2 + 2,
-                vy: Math.random() * 3 + 3,
-                length: Math.random() * 9 + 3, // 流星尾巴长度
-                width: Math.random() * 3 + 1,
-                color: `rgba(255, ${Math.random() * 200 + 30}, ${Math.random() * 200 + 30}, 1)`
-            });
+// 背景尘埃粒子
+class DustParticle {
+  constructor() {
+    Object.assign(this, {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 1.5 + 0.5,
+      hue: Math.random() * 360,
+      vx: (Math.random() - 0.5) * 0.05,
+      vy: (Math.random() - 0.5) * 0.05
+    });
+  }
+  update() {
+    this.x = (this.x + this.vx + canvas.width) % canvas.width;
+    this.y = (this.y + this.vy + canvas.height) % canvas.height;
+    this.hue = (this.hue + 0.1) % 360;
+  }
+  draw(ctx) {
+    ctx.fillStyle = `hsla(${this.hue}, 30%, 70%, 0.3)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
 
-            if (meteors.length > 3) {
-                meteors.shift();
-            }
-        }
+// 涟漪类
+class Ripple {
+  constructor(x, y, hue = 0, maxRadius = 30) {
+    Object.assign(this, { x, y, radius: 0, maxRadius, alpha: 0.5, hue });
+  }
+  update() {
+    this.radius += 1.5;
+    this.alpha -= 0.01;
+    this.hue = (this.hue + 5) % 360;
+  }
+  draw(ctx) {
+    ctx.strokeStyle = `hsla(${this.hue}, 80%, 60%, ${this.alpha})`;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  isDone() { return this.alpha <= 0; }
+}
 
-        // 绘制星星
-        function drawStars() {
-            stars.forEach(star => {
+// 创建粒子
+function createParticles() {
+  particles.length = 0;
+  dustParticles.length = 0;
+  const numParticles = adjustParticleCount();
+  for (let i = 0; i < numParticles; i++) {
+    particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+  }
+  for (let i = 0; i < 200; i++) {
+    dustParticles.push(new DustParticle());
+  }
+}
+
+// 调整canvas大小
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  createParticles();
+}
+
+// 背景渐变
+function drawBackground() {
+  const baseHue = 230;             // 基础色相
+  const range = 39;                // 色相变化幅度
+  const hue = baseHue + Math.sin(frameCount * 0.003) * range;
+//   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height); 
+const gradient = ctx.createRadialGradient(
+  canvas.width / 2, canvas.height / 2, 0,
+  canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height)
+);
+gradient.addColorStop(0, `hsl(${hue}, 40%, 15%)`);
+gradient.addColorStop(1, `hsl(${hue + 30}, 40%, 5%)`);
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+                         
+  // 更暗的蓝紫渐变
+  gradient.addColorStop(0,   `hsl(${hue}, 40%, 5%)`);
+  gradient.addColorStop(0.5, `hsl(${hue + 15}, 40%, 8%)`);
+  gradient.addColorStop(1,   `hsl(${hue + 30}, 40%, 12%)`);
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// 连接粒子
+function connectParticles() {
+  const gridSize = 120;
+  const grid = new Map();
+
+  particles.forEach((p) => {
+    const key = `${Math.floor(p.x / gridSize)},${Math.floor(p.y / gridSize)}`;
+    if (!grid.has(key)) grid.set(key, []);
+    grid.get(key).push(p);
+  });
+
+  ctx.lineWidth = 1.5;
+  particles.forEach((p) => {
+    const gridX = Math.floor(p.x / gridSize);
+    const gridY = Math.floor(p.y / gridSize);
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const key = `${gridX + dx},${gridY + dy}`;
+        if (grid.has(key)) {
+          grid.get(key).forEach((neighbor) => {
+            if (neighbor !== p) {
+              const diffX = neighbor.x - p.x;
+              const diffY = neighbor.y - p.y;
+              const dist = diffX * diffX + diffY * diffY;
+              if (dist < 10000) {
+                ctx.strokeStyle = `hsla(${(p.hue + neighbor.hue) / 2}, 80%, 60%, ${1 - Math.sqrt(dist) / 100})`;
                 ctx.beginPath();
-                ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-                ctx.fillStyle = star.color;
-                ctx.fill();
-            });
-        }
-
-        // 更新星星位置
-        function updateStars() {
-            stars.forEach(star => {
-                star.y += 0.2;
-                if (star.y > canvas.height) {
-                    star.y = 0;
-                    star.x = Math.random() * canvas.width;
-                }
-
-                if (!star.flashing && Math.random() < 0.002) {
-                    star.originalColor = star.color;
-                    star.color = "#ffffff";
-                    star.flashing = true;
-                    setTimeout(() => {
-                        star.color = star.originalColor;
-                        star.flashing = false;
-                    }, 200);
-                }
-            });
-        }
-
-        // 绘制流星
-        function drawMeteors() {
-            meteors.forEach(meteor => {
-                const gradient = ctx.createLinearGradient(
-                    meteor.x, meteor.y,
-                    meteor.x - meteor.vx * meteor.length, meteor.y - meteor.vy * meteor.length
-                );
-                gradient.addColorStop(0, meteor.color);
-                gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-                ctx.beginPath();
-                ctx.moveTo(meteor.x, meteor.y);
-                ctx.lineTo(meteor.x - meteor.vx * meteor.length, meteor.y - meteor.vy * meteor.length);
-                ctx.strokeStyle = gradient;
-                ctx.lineWidth = meteor.width;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(neighbor.x, neighbor.y);
                 ctx.stroke();
-            });
-        }
-
-        // 更新流星位置
-        function updateMeteors() {
-            meteors = meteors.filter(meteor => {
-                meteor.x += meteor.vx;
-                meteor.y += meteor.vy;
-                return !(meteor.x - meteor.vx * meteor.length > canvas.width || meteor.y - meteor.vy * meteor.length > canvas.height);
-            });
-        }
-
-        // 动画循环
-        function animate() {
-            if (!animationRunning) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawStars();
-            updateStars();
-            drawMeteors();
-            updateMeteors();
-
-            meteorSpawnTimer++;
-            if (meteorSpawnTimer > 300) {
-                spawnMeteor();
-                meteorSpawnTimer = 0;
+              }
             }
-
-            requestAnimationFrame(animate);
+          });
         }
+      }
+    }
+  });
+}
 
-        // 监听窗口变化
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initStars();
-        });
+// 动画循环
+function animate() {
+  drawBackground();
 
-        // **检查用户是否开启星空背景**
-        if (localStorage.getItem('starfieldEnabled') === 'true') {
-            canvas.style.display = 'block';
-            resizeCanvas();
-            initStars();
-            animationRunning = true;
-            animate();
-        } else {
-            canvas.style.display = 'none';
-        }
+  [dustParticles, particles, ripples, techRipples, fireworkParticles].forEach((arr) => {
+    for (let i = arr.length - 1; i >= 0; i--) {
+      const obj = arr[i];
+      obj.update(mouse);
+      obj.draw(ctx);
+      if (obj.isDone?.() || obj.isDead?.()) arr.splice(i, 1);
+    }
+  });
 
+  connectParticles();
+  frameCount++;
+  requestAnimationFrame(animate);
+}
 
-        // **按钮控制代码**
-        document.getElementById('toggleStarfield').addEventListener('click', function () {
-            if (canvas.style.display === 'none') {
-                canvas.style.display = 'block';
-                localStorage.setItem('starfieldEnabled', 'true'); // 记住状态
-                resizeCanvas();
-                initStars();
-                animationRunning = true;
-                animate();
-            } else {
-                canvas.style.display = 'none';
-                localStorage.setItem('starfieldEnabled', 'false'); // 记住状态
-                animationRunning = false;
-            }
-        });
+// 将事件绑定到 window（配合 pointer-events: none）
+window.addEventListener("mousemove", (e) => {
+  mouse.set({ x: e.clientX, y: e.clientY });
+  techRipples.push(new Ripple(mouse.x, mouse.y));
+  autoDrift = false;
+});
+
+window.addEventListener("mouseleave", () => {
+  mouse.reset();
+  autoDrift = true;
+});
+
+window.addEventListener("click", (e) => {
+  const clickX = e.clientX;
+  const clickY = e.clientY;
+
+  ripples.push(new Ripple(clickX, clickY, 0, 60));
+
+  for (let i = 0; i < 15; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() * 2 + 1;
+    const particle = new Particle(clickX, clickY, true);
+    particle.vx = Math.cos(angle) * speed;
+    particle.vy = Math.sin(angle) * speed;
+    fireworkParticles.push(particle);
+  }
+});
+
+// 监听窗口尺寸变化
+window.addEventListener("resize", resizeCanvas);
+
+// 初始化
+resizeCanvas();
+animate();
+
+                         
+                         
+
+                         
+
+// 按钮控制 
+// 开启背景
+function startCanvas() {
+  if (!canvasEnabled) {
+    canvasEnabled = true;
+    localStorage.setItem("canvasEnabled", "true");
+    resizeCanvas();
+    if (!animationId) { // 只有在没有循环时才启动
+      animationId = requestAnimationFrame(animate);
+    }
+    canvas.style.display = "block";
+  }
+}
+
+// 关闭背景
+function stopCanvas() {
+  if (canvasEnabled) {
+    canvasEnabled = false;
+    localStorage.setItem("canvasEnabled", "false");
+    cancelAnimationFrame(animationId);
+    animationId = null; // 清空标记，避免重复启动
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.style.display = "none";
+  }
+}
+
+// 修改 animate()，保存 animationId
+function animate() {
+  drawBackground();
+  [dustParticles, particles, ripples, techRipples, fireworkParticles].forEach((arr) => {
+    for (let i = arr.length - 1; i >= 0; i--) {
+      const obj = arr[i];
+      obj.update(mouse);
+      obj.draw(ctx);
+      if (obj.isDone?.() || obj.isDead?.()) arr.splice(i, 1);
+    }
+  });
+  connectParticles();
+  frameCount++;
+  animationId = requestAnimationFrame(animate);
+}
+
+// 按钮点击事件
+document.getElementById("toggleCanvas").addEventListener("click", () => {
+  if (canvasEnabled) {
+    stopCanvas();
+  } else {
+    startCanvas();
+  }
+});
+
+// 页面加载时检查状态（默认关闭）
+window.addEventListener("load", () => {
+  const saved = localStorage.getItem("canvasEnabled");
+  if (saved === "true") {
+    startCanvas();
+  } else {
+    stopCanvas(); // 默认关闭
+  }
+});
 
 
 
