@@ -128,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /*************
 canvas
 *************/
+let animationId = null;
+let canvasEnabled = false;
 
     
     
